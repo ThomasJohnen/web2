@@ -92,3 +92,16 @@ function renderMenuFromString(menu) {
 }
 
 renderMenuFromString(MENU);
+
+attachOnMouseEventsToGoGreen();
+
+function attachOnMouseEventsToGoGreen(){
+  const table = document.querySelector('table');
+  table.addEventListener('mouseover', () => {
+    table.className = 'table table-success';
+  });
+
+  table.addEventListener('mouseout', () => {
+    table.className = 'table table-danger';
+  });
+}
