@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // Custom styles
 import './stylesheets/main.css';
 import 'animate.css';
-
+import pizzaImage from './img/pizza2.jpg';
 
 const body = document.querySelector('body');
 
@@ -41,6 +41,24 @@ const MENU = [
     id: 5,
     title: 'Diable',
     content: 'Tomates, Mozarella, Chorizo piquant, Jalapenos',
+  },
+];
+
+const DRINKS = [
+  {
+    id: 1,
+    title: 'Lemonade',
+    content: 'Sparkling water, lemon, ice cubes',
+  },
+  {
+    id: 2,
+    title: 'Ice tea',
+    content: 'Mint, ginger, water',
+  },
+  {
+    id: 3,
+    title: 'Exotic Kombucha',
+    content: 'Mango, Sparkling water, Fermented tea',
   },
 ];
 
@@ -93,15 +111,85 @@ function renderMenuFromString(menu) {
 
 renderMenuFromString(MENU);
 
-attachOnMouseEventsToGoGreen();
+addTitleMenu();
 
-function attachOnMouseEventsToGoGreen(){
-  const table = document.querySelector('table');
+function addTitleMenu(){
+  const main = document.querySelector('main');
+  const main2 = '<figcaption class="text-light text-decoration-underline text-color-black">Our pizzas</figcaption>';
+  const mainWrapper = main2 + main.innerHTML;
+  main.innerHTML = mainWrapper;
+
+}
+
+
+function renderDrinksFromNodes(boissons){
+  
+  const drinksTableAsNode = getDrinksTableAsNode(boissons);
+  const main = document.querySelector('main');
+  main.appendChild(drinksTableAsNode);
+}
+
+function getDrinksTableAsNode(drinks){
+  const tableWrapper = document.createElement('div');
+  tableWrapper.className = 'table-responsive pt-5';
+  const table = document.createElement('table');
+  const tbody = document.createElement('tbody');
+  table.id = 'table-drinks';
+  table.className = 'table table-success';
+  tableWrapper.appendChild(table);
+  table.appendChild(tbody)
+  const header = document.createElement('tr');
+  const header1 = document.createElement('th');
+  header1.innerText = 'Drinks';
+  const header2 = document.createElement('th');
+  header2.innerText = 'Description';
+  header.appendChild(header1);
+  header.appendChild(header2);
+  tbody.appendChild(header);
+
+  /* Quelle différence entre innerHTML et innerText ? */
+
+  drinks?.forEach((drink) => {
+    const line = document.createElement('tr');
+    const title = document.createElement('td');
+    const description = document.createElement('td');
+    title.innerText = drink.title;
+    description.innerText = drink.content;
+    line.appendChild(title);
+    line.appendChild(description);
+    tbody.appendChild(line);
+  });
+
   table.addEventListener('mouseover', () => {
-    table.className = 'table table-success';
+    table.className = 'table table-danger';
   });
 
   table.addEventListener('mouseout', () => {
-    table.className = 'table table-danger';
-  });
+    table.className = 'table table-success';
+});
+  return tableWrapper
 }
+
+renderDrinksFromNodes(DRINKS);
+
+function addTitleMenuDrinks(){
+  const mainWrapper = document.querySelector('main');
+  const figcaption = document.createElement('figcaption');
+  figcaption.innerText = 'Our drinks';
+  figcaption.className = 'text-light text-decoration-underline';
+  mainWrapper.appendChild(figcaption);
+}
+
+addTitleMenuDrinks();
+
+function addPizzaImage(pizzaURL){
+  const image = document.createElement('img');
+  image.src = pizzaURL;
+  image.height = 50;
+  const footer = document.querySelector('footer');
+  footer.appendChild(image);
+
+}
+
+addPizzaImage(pizzaImage);
+
