@@ -11,5 +11,4 @@ const clearPage = () => {
     main.appendChild(pageTitle);
   };
   
-  export { clearPage, renderPageTitle };
-  
+  export { clearPage, renderPageTitle };  
